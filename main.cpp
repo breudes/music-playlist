@@ -6,6 +6,7 @@ int main(){
     LinkedList* teste = new LinkedList();
 
     Music musica,musica2,musica3;
+    
     musica.setTitle("cherry");
     musica.setArtist("rina sawayama");
 
@@ -19,13 +20,6 @@ int main(){
     teste->addElement(musica2);
     teste->addElement(musica3);
     
-    /*std::cout << teste->getSize() << std::endl;
-    std::cout << teste->getHead() << std::endl;
-    std::cout << teste->getTail() << std::endl;*/
-    
-    teste->removeElementAtPosition(2);
-
     teste->displayList();
-
     return 0;
 }
