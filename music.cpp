@@ -57,4 +57,3 @@
         */
         artist = artist_name;
     }
-};
