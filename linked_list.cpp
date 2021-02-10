@@ -26,7 +26,7 @@
         */
         Node* current_pointer = head_pointer;
         while(current_pointer!=nullptr){
-            Node* auxiliary_pointer = current_pointer->next_pointer;
+            Node* auxiliary_pointer = current_pointer->getNextPointer();
             delete current_pointer;
             current_pointer = auxiliary_pointer;
         }
@@ -98,20 +98,19 @@
 
         //Get music element and create a new node 
         Node* new_node = new Node();
-        new_node->music_element = new_music;
-        new_node->next_pointer = nullptr;
+        new_node->setMusicElement(new_music);
+        new_node->setNextPointer(nullptr);
         //Set a auxiliar_pointer
-        Node* auxiliary_pointer = new Node();
-        auxiliary_pointer = head_pointer;
+        Node* auxiliary_pointer = head_pointer;
         //Checks if list is empty (or not), then insert the new node into it
         if(head_pointer==nullptr && size==0){
             head_pointer = new_node;
             tail_pointer = new_node;
         }else{
-            while(auxiliary_pointer->next_pointer!=nullptr){
-                auxiliary_pointer = auxiliary_pointer->next_pointer;
+            while(auxiliary_pointer->getNextPointer()!=nullptr){
+                auxiliary_pointer = auxiliary_pointer->getNextPointer();
             }
-            auxiliary_pointer->next_pointer = new_node;
+            auxiliary_pointer->setNextPointer(new_node);
             tail_pointer = new_node;
         }
         size++;
@@ -138,25 +137,23 @@
         */
         //Get music element and create a new node 
         Node* new_node = new Node();
-        new_node->music_element = new_music;
-        new_node->next_pointer = nullptr;
+        new_node->setMusicElement(new_music);
+        new_node->setNextPointer(nullptr);
         //If the position is equal the beginning of the linked list
         if(position==0){
-            new_node->next_pointer = head_pointer;
+            new_node->setNextPointer(head_pointer);
             head_pointer = new_node;
         //Otherwise
         }else{
-            Node *previous_pointer = new Node();
-            Node *current_pointer = new Node();
-            current_pointer = head_pointer;
-
+            Node *current_pointer = head_pointer;
+            Node *previous_pointer = current_pointer;
             for(int i=1; i<=position; i++){
                 previous_pointer = current_pointer;
-                current_pointer = current_pointer->next_pointer;
+                current_pointer = current_pointer->getNextPointer();
             }
 
-            new_node->next_pointer = current_pointer;
-            previous_pointer->next_pointer = new_node;
+            new_node->setNextPointer(current_pointer);
+            previous_pointer->setNextPointer(new_node);
         }
     }
 
@@ -168,7 +165,7 @@
         */
         Node *auxiliary_pointer = new Node();
         auxiliary_pointer = head_pointer;
-        head_pointer = head_pointer->next_pointer;
+        head_pointer = head_pointer->getNextPointer();
         delete auxiliary_pointer;
     }
     
@@ -177,16 +174,15 @@
         /**
             * Removes the last element in list.
         */
-        Node *previous_pointer = new Node();
         Node *current_pointer = new Node();
         current_pointer = head_pointer;
-
-        while(current_pointer->next_pointer!=nullptr){
+        Node *previous_pointer = current_pointer;
+        while(current_pointer->getNextPointer()!=nullptr){
             previous_pointer = current_pointer;
-            current_pointer = current_pointer->next_pointer;
+            current_pointer = current_pointer->getNextPointer();
         }
         delete current_pointer;
-        previous_pointer->next_pointer = nullptr;
+        previous_pointer->setNextPointer(nullptr);
         tail_pointer = previous_pointer;
     }
 
@@ -199,20 +195,34 @@
         if(position==0){
             removeFirstElement();
         }else{
-            Node *previous_pointer = new Node();
             Node *current_pointer = new Node();
             current_pointer = head_pointer;
-
+            Node *previous_pointer = current_pointer;
             for(int i=1; i<=position; i++){
                 previous_pointer = current_pointer;
-                current_pointer = current_pointer->next_pointer;
+                current_pointer = current_pointer->getNextPointer();
             }
-            previous_pointer->next_pointer = current_pointer->next_pointer;
+            previous_pointer->setNextPointer(current_pointer->getNextPointer());
             delete current_pointer;
         }
     }
 
     /* ---------------------------- Display of elements -----------------------------*/
+    //Display Node
+    Node* LinkedList::displayNode(int position){
+        /**
+            * Returns the node at an especific position in list, this position is passed by user input;
+            *param 'position': an integer value.
+        */
+        Node *current_pointer = new Node();
+        current_pointer = head_pointer;
+
+        for(int i=1; i<=position; i++){
+            if(current_pointer==nullptr) break;
+            current_pointer = current_pointer->getNextPointer();
+        }
+        return current_pointer;
+    }
     //Display List 
     void LinkedList::displayList(){
         /**
@@ -222,10 +232,10 @@
         auxiliary_pointer = head_pointer;  
         while(auxiliary_pointer!=nullptr){
             std::cout << "-------------------------------------------------------------" << std::endl;
-            std::cout << "Track title: " << auxiliary_pointer->music_element.getTitle() << std::endl;
-            std::cout << "Track artist: " << auxiliary_pointer->music_element.getArtist() << std::endl;
+            std::cout << "Track title: " << auxiliary_pointer->getMusicElement().getTitle() << std::endl;
+            std::cout << "Track artist: " << auxiliary_pointer->getMusicElement().getArtist() << std::endl;
             std::cout << "-------------------------------------------------------------" << std::endl;
-            auxiliary_pointer=auxiliary_pointer->next_pointer;
+            auxiliary_pointer=auxiliary_pointer->getNextPointer();
         }
         delete auxiliary_pointer;
     }
@@ -242,13 +252,13 @@
 
         for(int i=1; i<=position; i++){
             if(current_pointer==nullptr) break;
-            current_pointer = current_pointer->next_pointer;
+            current_pointer = current_pointer->getNextPointer();
         } 
         if(current_pointer!=nullptr){
             std::cout << "------------ Track at "<< position << " ---------------------" << std::endl;
             std::cout << "-------------------------------------------------------------" << std::endl;
-            std::cout << "Track title: " << current_pointer->music_element.getTitle() << std::endl;
-            std::cout << "Track artist: " << current_pointer->music_element.getArtist() << std::endl;
+            std::cout << "Track title: " << current_pointer->getMusicElement().getTitle() << std::endl;
+            std::cout << "Track artist: " << current_pointer->getMusicElement().getArtist() << std::endl;
             std::cout << "-------------------------------------------------------------" << std::endl;
         }else{
             std::cout << "-------------------------------------------------------------" << std::endl;
@@ -265,8 +275,8 @@
         */
         std::cout << "------------ Track at the beginning of list -----------------" << std::endl;
         std::cout << "-------------------------------------------------------------" << std::endl;
-        std::cout << "Track title: " << head_pointer->music_element.getTitle() << std::endl;
-        std::cout << "Track artist: " << head_pointer->music_element.getArtist() << std::endl;
+        std::cout << "Track title: " << head_pointer->getMusicElement().getTitle() << std::endl;
+        std::cout << "Track artist: " << head_pointer->getMusicElement().getArtist() << std::endl;
         std::cout << "-------------------------------------------------------------" << std::endl;
     }
 
@@ -277,7 +287,7 @@
         */
         std::cout << "------------ Track at the end of list -----------------------" << std::endl;
         std::cout << "-------------------------------------------------------------" << std::endl;
-        std::cout << "Track title: " << tail_pointer->music_element.getTitle() << std::endl;
-        std::cout << "Track artist: " << tail_pointer->music_element.getArtist() << std::endl;
+        std::cout << "Track title: " << tail_pointer->getMusicElement().getTitle() << std::endl;
+        std::cout << "Track artist: " << tail_pointer->getMusicElement().getArtist() << std::endl;
         std::cout << "-------------------------------------------------------------" << std::endl;
     }

@@ -14,16 +14,16 @@
         /**
             * Constructs an music object with the properties given by user input.
         */
-        title = title_name;
-        artist = artist_name;
+        this->title = title_name;
+        this->artist = artist_name;
     }
     //Destructor
     Music::~Music(){
         /**
             * Destructs the music object, i.e., clear the value of string (but not its address in storage).
         */
-        title.clear();
-        artist.clear();
+        this->title.clear();
+        this->artist.clear();
     }
     /* ---------------------------- Member functions --------------------------------*/
     /* ---------------------------- Getters and setters -----------------------------*/    
@@ -32,14 +32,14 @@
         /**
             * Returns the 'title' propertie, each means, the title of a music object.
         */
-        return title;
+        return this->title;
     }
     //Get Artist
     std::string Music::getArtist(void){
         /**
             * Returns the 'artist' propertie, each means, the artist of a music object.
         */
-        return artist;
+        return this->artist;
     }
     //Set Title
     void Music::setTitle(std::string title_name){
@@ -47,7 +47,7 @@
             * Set a new title name, each means, refresh 'title' of a music object.
             *param 'title_name': a string variable;
         */
-        title = title_name;
+        this->title = title_name;
     }
     //Set Artist
     void Music::setArtist(std::string artist_name){
@@ -55,5 +55,5 @@
             * Set a new artist name, each means, refresh 'artist' of a music object.
             *param 'artist_name': a string variable;
         */
-        artist = artist_name;
+        this->artist = artist_name;
     }

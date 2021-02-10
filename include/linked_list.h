@@ -3,14 +3,7 @@
 
 #include <string>
 #include <iostream>
-#include "../music.cpp"
-
-//This class represents a node (an element) of a particular linked list
-class Node{
-    public:
-        Music music_element; //Music object
-        Node *next_pointer; //this pointer will be used as a pointer to the next element of the linked list
-};
+#include "../node.cpp"
 
 //This class represents a particular linked list, which each element is a music object.
 class LinkedList{ 
@@ -37,10 +30,10 @@ class LinkedList{
             void removeFirstElement();
             void removeLastElement();
         //Display elements
+            Node* displayNode(int position);
             void displayList();
             void displayOneElement(int position);
             void displayFirstElement();
             void displayLastElement();
 };
-
 #endif
