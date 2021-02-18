@@ -1,4 +1,4 @@
-#include "./include/linked_list.h"
+#include "../include/linked_list.h"
 
 /*!
     * In this .cpp file is implemented a particular linked list, which each element is a music 
@@ -141,8 +141,8 @@
         new_node->setNextPointer(nullptr);
         //If the position is equal the beginning of the linked list
         if(position==0){
-            new_node->setNextPointer(head_pointer);
             head_pointer = new_node;
+            tail_pointer = new_node;
         //Otherwise
         }else{
             Node *current_pointer = head_pointer;
@@ -155,59 +155,57 @@
             new_node->setNextPointer(current_pointer);
             previous_pointer->setNextPointer(new_node);
         }
+        size++;
     }
 
     /* ---------------------------- Remotion of an element -----------------------------*/
-    //Remove First Element
-    void LinkedList::removeFirstElement(){
+    //Remove Element By Name
+    void LinkedList::removeElementByName(Music new_music){
         /**
-            * Removes the first element in list.
+            * Removes a element at list, this element is music object (with title and artist to search to) passed by user input;
+            *param 'new_music': a music object.
         */
-        Node *auxiliary_pointer = new Node();
-        auxiliary_pointer = head_pointer;
-        head_pointer = head_pointer->getNextPointer();
-        delete auxiliary_pointer;
-    }
-    
-    //Remove Last Element
-    void LinkedList::removeLastElement(){
-        /**
-            * Removes the last element in list.
-        */
-        Node *current_pointer = new Node();
-        current_pointer = head_pointer;
+        Node *current_pointer = head_pointer;
         Node *previous_pointer = current_pointer;
-        while(current_pointer->getNextPointer()!=nullptr){
+
+        while(current_pointer!=nullptr){
+            if(current_pointer==nullptr) break;
+            if( current_pointer->getMusicElement().getTitle() == new_music.getTitle() && current_pointer->getMusicElement().getArtist() == new_music.getArtist() ) break;
             previous_pointer = current_pointer;
             current_pointer = current_pointer->getNextPointer();
         }
-        delete current_pointer;
-        previous_pointer->setNextPointer(nullptr);
-        tail_pointer = previous_pointer;
-    }
 
-    //Remove element at position
-    void LinkedList::removeElementAtPosition(int position){
-        /**
-            * Removes a element at an especific position in list, this position is an integer value passed by user input;
-            *param 'position': an integer value.
-        */
-        if(position==0){
-            removeFirstElement();
-        }else{
-            Node *current_pointer = new Node();
-            current_pointer = head_pointer;
-            Node *previous_pointer = current_pointer;
-            for(int i=1; i<=position; i++){
-                previous_pointer = current_pointer;
-                current_pointer = current_pointer->getNextPointer();
-            }
+        if(current_pointer!=nullptr){
             previous_pointer->setNextPointer(current_pointer->getNextPointer());
-            delete current_pointer;
+            if(current_pointer==head_pointer) head_pointer = current_pointer->getNextPointer();
+            if(current_pointer==tail_pointer){
+                previous_pointer->setNextPointer(nullptr);
+                tail_pointer = previous_pointer;
+            }
+            free(current_pointer);
+            --size;
+        }else{ std::cout << "Music not found on system!" << std::endl; }
+        
+    }
+    /* ---------------------------- Display of elements -----------------------------*/
+
+    int LinkedList::searchElement(Music new_music){
+        int position = 0;
+        Node *current_pointer = new Node();
+        current_pointer = head_pointer;
+        Node *previous_pointer = current_pointer;
+
+        while(current_pointer!=nullptr){
+            if(current_pointer->getMusicElement().getTitle() == new_music.getTitle() &&
+            current_pointer->getMusicElement().getArtist() == new_music.getArtist() ) break;
+
+            current_pointer = current_pointer->getNextPointer();
+            position++;
         }
+        delete current_pointer;
+        return position;
     }
 
-    /* ---------------------------- Display of elements -----------------------------*/
     //Display Node
     Node* LinkedList::displayNode(int position){
         /**
@@ -230,6 +228,10 @@
         */
         Node* auxiliary_pointer = new Node();
         auxiliary_pointer = head_pointer;  
+        
+        std::cout << "-------------------------------------------------------------" << std::endl;
+        std::cout << "                       ALL SONGS                             " << std::endl;
+        std::cout << "-------------------------------------------------------------" << std::endl;
         while(auxiliary_pointer!=nullptr){
             std::cout << "-------------------------------------------------------------" << std::endl;
             std::cout << "Track title: " << auxiliary_pointer->getMusicElement().getTitle() << std::endl;
@@ -237,7 +239,7 @@
             std::cout << "-------------------------------------------------------------" << std::endl;
             auxiliary_pointer=auxiliary_pointer->getNextPointer();
         }
-        delete auxiliary_pointer;
+        free(auxiliary_pointer);
     }
 
     //Display One Element 
@@ -254,8 +256,8 @@
             if(current_pointer==nullptr) break;
             current_pointer = current_pointer->getNextPointer();
         } 
-        if(current_pointer!=nullptr){
-            std::cout << "------------ Track at "<< position << " ---------------------" << std::endl;
+        if(current_pointer!=nullptr && current_pointer->getMusicElement().getTitle()!=""){
+            std::cout << "----------------- Track at "<< position << " ---------------------" << std::endl;
             std::cout << "-------------------------------------------------------------" << std::endl;
             std::cout << "Track title: " << current_pointer->getMusicElement().getTitle() << std::endl;
             std::cout << "Track artist: " << current_pointer->getMusicElement().getArtist() << std::endl;
@@ -265,7 +267,7 @@
             std::cout << "Invalid index of linked list. Try another position!" << std::endl;
             std::cout << "-------------------------------------------------------------" << std::endl;
         }
-        delete current_pointer;
+        free(current_pointer);
     }
     
     //Display First Element
@@ -273,7 +275,7 @@
         /**
             * Display the first element of the list. Its pointer is allocated at 'head_pointer' (a Node pointer).
         */
-        std::cout << "------------ Track at the beginning of list -----------------" << std::endl;
+        std::cout << "------------ Track at position 0 -----------------" << std::endl;
         std::cout << "-------------------------------------------------------------" << std::endl;
         std::cout << "Track title: " << head_pointer->getMusicElement().getTitle() << std::endl;
         std::cout << "Track artist: " << head_pointer->getMusicElement().getArtist() << std::endl;

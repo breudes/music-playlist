@@ -13,6 +13,7 @@ class Music{
         //Constructors
         Music();
         Music(std::string title_name, std::string artist_name);
+        Music(const Music &new_song);
         //Destructors
         ~Music();
         //Getters and Setters

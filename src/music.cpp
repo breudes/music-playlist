@@ -1,4 +1,4 @@
-#include "./include/music.h"
+#include "../include/music.h"
 /*!
     * In this .cpp file is implemented a Music Class, which each element is a music with a 'title' of the track,
     * and an 'artist' of the track. Both of properties are in a string variable.
@@ -16,6 +16,10 @@
         */
         this->title = title_name;
         this->artist = artist_name;
+    }
+    Music::Music(const Music &new_song){
+        this->title = new_song.title;
+        this->artist = new_song.artist;
     }
     //Destructor
     Music::~Music(){

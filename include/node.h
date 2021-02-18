@@ -1,7 +1,7 @@
 #ifndef NODE_H
 #define NODE_H
 
-#include "../music.cpp"
+#include "../src/music.cpp"
 
 //This class represents a node (an element) of a particular linked list
 class Node{

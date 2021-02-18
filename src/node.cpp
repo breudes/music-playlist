@@ -1,6 +1,6 @@
 #include <string>
 #include <iostream>
-#include "./include/node.h"
+#include "../include/node.h"
 /*!
     * In this .cpp file is implemented a Node Class, which each element is a music element with a node's pointer to the next node
     * (which has another music element). Each node is important for a linked list, because the beginning until the end of a list
@@ -33,6 +33,7 @@
         this->music_element.getTitle().clear();
         this->music_element.getArtist().clear();
         delete this->next_pointer;
+        delete this;
     }
 
     /* ---------------------------- Member functions --------------------------------*/

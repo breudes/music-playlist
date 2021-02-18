@@ -3,7 +3,7 @@
 
 #include <string>
 #include <iostream>
-#include "../node.cpp"
+#include "../src/node.cpp"
 
 //This class represents a particular linked list, which each element is a music object.
 class LinkedList{ 
@@ -26,10 +26,9 @@ class LinkedList{
             void addElementAtFirst(Music new_music);
             void addElementAtPosition(Music new_music, int position);
         //Remotion of elements
-            void removeElementAtPosition(int position);
-            void removeFirstElement();
-            void removeLastElement();
+            void removeElementByName(Music new_music);
         //Display elements
+            int searchElement(Music new_music);
             Node* displayNode(int position);
             void displayList();
             void displayOneElement(int position);
