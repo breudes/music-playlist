@@ -18,7 +18,6 @@
         this->head_pointer = nullptr;
         this->tail_pointer = nullptr;
     }
-    
     //Destructor
     LinkedList::~LinkedList(){
         /**
@@ -40,49 +39,47 @@
     int LinkedList::getSize(void){
         /**
             * Returns the size, each means, the length of list.
+            * @return int: the length of list (an integer value).
         */
         return this->size;
     }
-    
     //Get Head
     Node* LinkedList::getHead(void){
         /**
             * Returns the 'head' pointer, each means, the adress of first element of list.
+            * @return Node*: head pointer of list (node pointer).
         */
         return this->head_pointer;
     }
-    
     //Get Tail
     Node* LinkedList::getTail(void){
         /**
             * Returns the 'tail' pointer, each means, the adress of last element of list.
+            * @return Node*: tail pointer of list (node pointer).
         */
         return this->tail_pointer;
     }
-
     //Set Size 
     void LinkedList::setSize(int new_size){
         /**
             * Set a new size value, each means, refresh the length of list.
-            *param 'new_size': an integer value;
+            * @param new_size: new length of list (an integer value).
         */
         this->size = new_size;
     }
-    
     //Set Head
     void LinkedList::setHead(Node *head_new_pointer){
         /**
             * Set a new Node pointer to be acess by the 'head' pointer, each means, a new address referring to the first element of list.
-            *param 'head_new_pointer': a Node class's pointer;
+            * @param head_new_pointer: Node class's pointer.
         */
         this->head_pointer = head_new_pointer;
     }
-    
     //Set Tail
     void LinkedList::setTail(Node *tail_new_pointer){
         /**
             * Set a new Node pointer to be acess by the 'tail' pointer, each means, a new address referring to the last element of list.
-            *param 'tail_new_pointer': a Node class's pointer;
+            * @param tail_new_pointer: Node class's pointer.
         */
         this->tail_pointer = tail_new_pointer;
     }
@@ -93,7 +90,7 @@
         /**
             * Adds an element at the last position of list. This element is a Music object passed by user input.
             * The previous 'last' element's pointer will have a 'next_pointer' to the new 'last' element's pointer.
-            *param 'new_music': a Music class's object;
+            * @param new_music: new Music class's object.
         */
 
         //Get music element and create a new node 
@@ -115,13 +112,12 @@
         }
         size++;
     }
-
     //Add Element at First (Position)
     void LinkedList::addElementAtFirst(Music new_music){
         /**
             * Adds an element at the first position of list. This element is a Music object passed by user input.
             * The previous 'first' element's pointer will have a 'next_pointer' to the new 'first' element's pointer;
-            *param 'new_music': a Music class's object;
+            * @param new_music: new Music class's object.
         */
         addElementAtPosition(new_music,0);
     }
@@ -132,8 +128,8 @@
             * Adds an element at a particular position of list. This element is a Music object and the position is an integer value, 
             * both passed by user input; 
             * The previous element's pointer at the particular position will have a 'next_pointer' to the new element's pointer; 
-            *param 'new_music': a Music class's object;
-            *param 'position': a integer value;
+            * @param new_music: new Music class's object;
+            * @param position: position of the song (an integer value).
         */
         //Get music element and create a new node 
         Node* new_node = new Node();
@@ -164,7 +160,7 @@
     void LinkedList::removeElementByName(Music new_music){
         /**
             * Removes a element at list, this element is music object (with title and artist to search to) passed by user input;
-            *param 'new_music': a music object.
+            * @param new_music: music object to be removed of list.
         */
         Node *current_pointer = head_pointer;
         Node *previous_pointer = current_pointer;
@@ -189,7 +185,24 @@
         
     }
     /* ---------------------------- Display of elements -----------------------------*/
+    //Get One Element Node
+    Node* LinkedList::getOneElementNode(Music new_music){
+        /** Returns a node pointer based on a music object passed as user input.
+          * @param new_music: music object.
+          * @return: node pointer.
+        */
+        Node *current_pointer = new Node();
+        current_pointer = head_pointer;
 
+        while(current_pointer!=nullptr){
+            if( current_pointer->getMusicElement().getTitle() == new_music.getTitle() && 
+            current_pointer->getMusicElement().getArtist() == new_music.getArtist()){
+                break;
+            }
+            current_pointer = current_pointer->getNextPointer();
+        }
+        return current_pointer;
+    }
     //Display List 
     void LinkedList::displayList(){
         /**
@@ -216,7 +229,7 @@
         /**
             * Display the element at an especific position in list, this position is an integer value 
             * passed by user input;
-            *param 'position': an integer value.
+            * @param position: position of the song (an integer value).
         */
         Node *current_pointer = new Node();
         current_pointer = head_pointer;
@@ -237,8 +250,12 @@
         }
         free(current_pointer);
     }
-    
+    //Display One Element
     void LinkedList::displayOneElement(Music new_music){
+        /**
+            * Display the element by its particular title and artist music's properties in list, passed by user input;
+            * @param new_music: music object to search on system.
+        */
         Node *current_pointer = new Node();
         current_pointer = head_pointer;
 
@@ -271,7 +288,6 @@
         std::cout << "Track artist: " << head_pointer->getMusicElement().getArtist() << std::endl;
         std::cout << "-------------------------------------------------------------" << std::endl;
     }
-
     //Display Last Element
     void LinkedList::displayLastElement(){
         /**

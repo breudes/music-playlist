@@ -28,7 +28,6 @@ class Playlist{
         //Remotion of songs
         void removeSong(Music new_music);
         //Display songs
-        int searchSong(Music song);
         void displaySongs(Node *head);
         void displayPlaylist();
         void displayNextSong();

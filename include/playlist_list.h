@@ -2,8 +2,8 @@
 #define PLAYLIST_LIST_H
 #include "../src/playlist_node.cpp"
 
-/*This class represents a playlist linked list, each node has a playlist object and a playlistNode pointer
-/*to the next playlist on the list */
+/* *This class represents a playlist linked list, each node has a playlist object and a playlistNode pointer
+/* *to the next playlist on the list */
 class PlaylistList{
     private:
         int size; //this linked list length
@@ -29,8 +29,6 @@ class PlaylistList{
         void removePlaylistByName(std::string playlist_name);
         //Display elements
         void displayPlaylists();
-        void displayFirstPlaylist();
-        void displayLastPlaylist();
         void displayPlaylistByName(std::string playlist_name);
 };
 #endif
