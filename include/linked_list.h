@@ -28,6 +28,7 @@ class LinkedList{
         //Remotion of elements
             void removeElementByName(Music new_music);
         //Display elements
+            Node* getOneElementNode(Music new_music);
             void displayList();
             void displayOneElement(int position);
             void displayOneElement(Music new_music);

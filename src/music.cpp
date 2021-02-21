@@ -16,8 +16,8 @@
     Music::Music(std::string title_name, std::string artist_name){
         /**
             * Constructs an music object with the properties given by user input;
-            * @param 'title_name': a string value;
-            * @param 'artist_name': a string value.
+            * @param title_name: title of song (string value);
+            * @param artist_name: artist of song (string value).
         */
         this->title = title_name;
         this->artist = artist_name;
@@ -26,7 +26,7 @@
     Music::Music(const Music &new_song){
         /**
             * Constructs an music object with the properties of another music object;
-            * @param 'new_song': a const music object.
+            * @param new_song: new music object (const music object).
         */
         this->title = new_song.title;
         this->artist = new_song.artist;
@@ -50,6 +50,7 @@
     std::string Music::getTitle(void){
         /**
             * Returns the 'title' propertie, each means, the title of a music object.
+            * @return: title of the song (string value).
         */
         return this->title;
     }
@@ -57,6 +58,7 @@
     std::string Music::getArtist(void){
         /**
             * Returns the 'artist' propertie, each means, the artist of a music object.
+            * @return: artist of the song (string value).
         */
         return this->artist;
     }
@@ -64,7 +66,7 @@
     void Music::setTitle(std::string title_name){
         /**
             * Set a new title name, each means, refresh 'title' of a music object.
-            * @param 'title_name': a string variable;
+            * @param title_name: new title of song (string value).
         */
         this->title = title_name;
     }
@@ -72,7 +74,7 @@
     void Music::setArtist(std::string artist_name){
         /**
             * Set a new artist name, each means, refresh 'artist' of a music object.
-            * @param 'artist_name': a string variable;
+            * @param artist_name: new artist of song (string value).
         */
         this->artist = artist_name;
     }
