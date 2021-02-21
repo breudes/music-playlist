@@ -12,20 +12,14 @@
         2. Manage playlists from system;
         3. Manage one playlist from system.
 
-    And, obviously, each option has a individual menu with especific requests from it. But all options has the management system, i.e., the add, remove and display regular options. See the [Limitations](# Limitations) part to know a little bit more about this 'main' menu.
+    And, obviously, each option has a individual menu with especific requests from it. But all options has the management system, i.e., the add, remove and display regular options. See the [Limitations](https://github.com/breudes/music-playlist/tree/master#limitations) part to know a little bit more about this 'main' menu.
 # Compiling
     A Makefile is used to compile this project. From the project's root folder, assuming `$` is the terminal prompt, follow these steps:
 
-    ```bash
-    # Clone project
-    $ git clone https://github.com/breudes/music-playlist.git
-
-    # Compile project
-    $ make
-
-    # Execute 
-    $ ./musify 
-
+    ```
+    $ git clone https://github.com/breudes/music-playlist.git   #Clone project
+    $ make     #Compile project
+    $ ./main    #Execute 
     ```
 # Input and Output examples
 
@@ -35,6 +29,6 @@
     1. You can only manage a especific playlist if you select the third option on 'main menu';
     2. The 'remove' option is only available by name, which means, you can only remove a song or playlist if insert its name.
 # Author
-    This projet was made by [breudes](https://github.com/breudes).
+    This projet was made by <a href="https://github.com/breudes">breudes</a>.
 # License
-    This project is under MIT licence. See [LICENSE]() for more details.
+    This project is under MIT licence. See <a href="https://github.com/breudes">breudes</a> for more details.
