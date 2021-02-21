@@ -1,4 +1,4 @@
-#include "./src/playlist_list.cpp"
+#include "./playlist_list.cpp"
 
 void menu(){
     std::cout << "=========================================================" << std::endl;
@@ -40,8 +40,8 @@ void menuPlaylist(){
     std::cout << "                    MENU PLAYLIST                        " << std::endl;
     std::cout << "=========================================================" << std::endl;
     std::cout << "1. Add song on playlist." << std::endl;
-    std::cout << "2. Move song on playlist." << std::endl;
-    std::cout << "3. Remove song on playlist." << std::endl;
+    std::cout << "2. Move song on playlist (by its name)." << std::endl;
+    std::cout << "3. Remove song on playlist (by its name)." << std::endl;
     std::cout << "4. Display next song from this playlist." << std::endl;
     std::cout << "5. Display all songs from this playlist." << std::endl;
     std::cout << "6. Quit." << std::endl;
@@ -74,9 +74,9 @@ void deleteSongsFromPlaylist(PlaylistList *all_playlists, Music song){
 
 void manageSongs(LinkedList *all_songs, PlaylistList *all_playlists){
     int option = 0;
-    menuSongs();
     
     while(option!=5){
+        menuSongs();
         std::cin >> option;
         if(option==5)break;
         if(option==1){ //add song from system
@@ -100,14 +100,9 @@ void manageSongs(LinkedList *all_songs, PlaylistList *all_playlists){
         if(option==3){ //display song from system
             Music found_song;
             //get music object by user input
-            found_song = askSong();
-            //Search song on system
-            int result_position;
-            result_position = all_songs->searchElement(found_song);
+            found_song = askSong();            
             //Display found song from system
-            all_songs->displayOneElement(result_position);
-            //Output message
-            std::cout << "Music was founded on this music system!" << std::endl;
+            all_songs->displayOneElement(found_song);
         }
         if(option==4){ //display all songs from system
             all_songs->displayList();
@@ -124,23 +119,39 @@ std::string askPlaylistName(){
 }
 
 PlaylistNode* getPlaylistByItsName(PlaylistList *all_playlists,std::string name){
-    PlaylistNode *auxiliary_playlist = all_playlists->getPlaylistHead();
+    PlaylistNode *auxiliary_playlist = all_playlists->getPlaylistByName(name);
     return auxiliary_playlist;
 }
 
 void managePlaylist(PlaylistNode *playlist_pointer){
     int option = -1;
-    menuPlaylist();
 
     while(option!=6){
+        menuPlaylist();
         std::cin >> option;
         if(option==6) break;
         if(option==1){ //Add song
-            Music found_song;
+            std::cout << "1. Add song at first position." << std::endl;
+            std::cout << "2. Add song at especific position." << std::endl;
+            std::cout << "3. Add song at last position (default option)." << std::endl;
+            //Ask add song options
+            std::cout << "Inform your option value: " << std::endl;
+            int option_add = -1;
+            std::cin >> option_add;
             //get music object by user input
+            Music found_song;
             found_song = askSong();
+
             //Add song on system
-            playlist_pointer->getPlaylistSet().addSong(found_song);
+            if(option_add==1) playlist_pointer->getPlaylistSet().addSongAtFirst(found_song);
+            if(option_add==2){
+                std::cout << "Inform your position value: " << std::endl;
+                int position = -1;
+                std::cin >> position;
+                playlist_pointer->getPlaylistSet().addSongAtPosition(found_song,position);
+            } 
+            if(option_add==3) playlist_pointer->getPlaylistSet().addSong(found_song);
+            
             //Output message
             std::cout << "Music is now on this playlist!" << std::endl;
         }
@@ -177,11 +188,11 @@ void managePlaylist(PlaylistNode *playlist_pointer){
 
 void manageAllPlaylists(PlaylistList *all_playlists){
     int option = -1;
-    menuPlaylists();
     
     while(option!=5){
+        menuPlaylists();
         std::cout << "=========================================================" << std::endl;
-        std::cout << "You still are on 'all playlists' menu! Enter a new option value: " << std::endl;
+        std::cout << "You are on 'all playlists' menu! Enter a new option value: " << std::endl;
         std::cin >> option;
 
         if(option==5){
@@ -225,38 +236,48 @@ void manageAllPlaylists(PlaylistList *all_playlists){
 }
 
 int main(){
+    //Init list of songs and list of playlist from the system
     LinkedList *all_songs = new LinkedList(); //all songs from system
     PlaylistList *all_playlists = new PlaylistList(); //all playlists from system
-
-    menu();
-    int option = -1;
-
+    PlaylistNode *auxiliary_playlist; //a playlist node pointer
+    int option = -1; //option integer to the main menu of the system
+    
+    //Displays options of the main menu and leads to the chosen option
     while(option!=4){
+        menu(); //main menu
+        //get option value by user input
         std::cout << "=========================================================" << std::endl;
         std::cout << "You are on 'main' menu! Enter an option value: " << std::endl;
         std::cin >> option;
         
+        //Quit of system
         if(option==4){
             std::cout << "=========================================================" << std::endl;
             std::cout << "You are logging off from this music system. Goodbye!" << std::endl;
             break;
         }
-
+        //Manage songs of system
         if(option==1){
             manageSongs(all_songs,all_playlists);
         }
+        //Manage playlists of system
         if(option==2){
             manageAllPlaylists(all_playlists);
         }
-        
+        //Manage one playlist of system
         if(option==3){
+            std::cout << "-------------- Inform the playlist you want to manage -------------" << std::endl;
             std::string playlist_name = askPlaylistName();
-            std::cout << playlist_name << std::endl;
-            PlaylistNode *auxiliary_playlist;
             auxiliary_playlist = getPlaylistByItsName(all_playlists,playlist_name);
-            managePlaylist(auxiliary_playlist);
+            if(auxiliary_playlist!=nullptr) managePlaylist(auxiliary_playlist);
+            else std::cout << "Playlist not found!" << std::endl;
         }
     }
 
+    //Deallocate a playlist node's pointer and all linked list used on this system
+    free(auxiliary_playlist);
+    free(all_songs);
+    free(all_playlists);
+    
     return 0;
 }

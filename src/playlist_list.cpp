@@ -44,10 +44,13 @@ void PlaylistList::setPlaylistTail(PlaylistNode *tail_new_pointer){
 PlaylistNode* PlaylistList::getPlaylistByName(std::string playlist_name){
     PlaylistNode *auxiliary_playlist = head_playlist;
     while(auxiliary_playlist!=nullptr){
+        if(auxiliary_playlist==nullptr) break;
         if(auxiliary_playlist->getPlaylistSet().getPlaylistName() == playlist_name) break;
         auxiliary_playlist = auxiliary_playlist->getPlaylistPointer();
     }
-    return auxiliary_playlist;
+    if(auxiliary_playlist==nullptr){
+        return nullptr;
+    }else return auxiliary_playlist;
 }
 
 //Insertion of playlists
@@ -106,7 +109,7 @@ void PlaylistList::displayPlaylists(){
         auxiliary_playlist=auxiliary_playlist->getPlaylistPointer();
     }
 
-    delete auxiliary_playlist;
+    free(auxiliary_playlist);
 }
 
 void PlaylistList::displayPlaylistByName(std::string playlist_name){

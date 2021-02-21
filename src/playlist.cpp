@@ -3,6 +3,7 @@
     * In this .cpp file is implemented a playlist class, which each object is a music playlist.
     * Each playlist has a name (with a string variable) and a linked list's pointer to storage all songs.
 */
+    int song = 0; //a position with a integer value to storage the order of plays in a playlist
     /*--------------- Constructor and Destructor -----------------------------------*/
     //Default Constructor
     Playlist::Playlist(){
@@ -10,7 +11,6 @@
             * Constructs an empty playlist with a default-constructed allocator.
         */
         this->playlist_name = "NULL";
-        this->next_song = 0;
     }
     //Destructor
     Playlist::~Playlist(){
@@ -43,6 +43,7 @@
     LinkedList* Playlist::getMusicSet(){
         return this->music_list;
     }
+
     //Set Playlist Name
     void Playlist::setPlaylistName(std::string new_name){
         /**
@@ -122,6 +123,5 @@
         std::cout << "-------------------------------------------------------------" << std::endl;
         std::cout << "              Next Song on Playlist '" << this->getPlaylistName() << "'"<< std::endl;
         std::cout << "-------------------------------------------------------------" << std::endl;
-        this->music_list->displayOneElement(this->next_song);
-        next_song++;
+        this->music_list->displayOneElement(song);
     }

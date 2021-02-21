@@ -18,7 +18,9 @@
     }
     Node::Node(Music music, Node *pointer){
         /**
-            * Constructs an node object with the properties given by user input.
+            * Constructs an node object with the properties given by user input;
+            * @param 'music': a music object;
+            * @param 'pointer': a node pointer.
         */
         this->music_element.setTitle(music.getTitle());
         this->music_element.setArtist(music.getArtist());
@@ -56,7 +58,7 @@
     void Node::setMusicElement(Music new_music){
         /**
             * Set a new music element, each means, refresh 'music_element' of a node object.
-            *param 'new_music': a music object;
+            * @param 'new_music': a music object;
         */
         this->music_element.setTitle(new_music.getTitle());
         this->music_element.setArtist(new_music.getArtist());
@@ -65,7 +67,7 @@
     void Node::setNextPointer(Node *new_pointer){
         /**
             * Set a new node pointer, each means, refresh 'next_pointer' (a node pointer) of a node object.
-            *param 'new_pointer': a node pointer;
+            * @param 'new_pointer': a node pointer;
         */
         this->next_pointer = new_pointer;
     }

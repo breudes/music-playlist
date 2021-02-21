@@ -10,7 +10,6 @@ class Playlist{
     private:
         std::string playlist_name; //playlist's name
         LinkedList *music_list = new LinkedList(); //playlist's songs
-        int next_song; //a position with a integer value to storage the order of plays in a playlist
     public:
         //Constructors
         Playlist(); 
