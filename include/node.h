@@ -11,12 +11,11 @@ class Node{
     public:
         //Constructors
         Node();
-        Node(Music music, Node *pointer);
         //Destructor
         ~Node();
         //Getters and Setters
-        Music getMusicElement();
-        Node* getNextPointer();
+        Music getMusicElement() const;
+        Node* getNextPointer() const;
         void setMusicElement(Music new_music);
         void setNextPointer(Node *new_pointer);
 };

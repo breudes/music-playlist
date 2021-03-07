@@ -15,9 +15,9 @@ class Playlist{
         Playlist(); 
         ~Playlist(); //Destructor
         //Getters and Setters
-        std::string getPlaylistName();
-        Node* getMusicList();
-        LinkedList* getMusicSet();
+        std::string getPlaylistName() const;
+        Node* getMusicList() const;
+        LinkedList* getMusicSet() const;
         void setPlaylistName(std::string new_name);
         void setMusicList(LinkedList* new_music_list);  
         //Insertion of songs
@@ -31,5 +31,17 @@ class Playlist{
         void displaySongs(Node *head);
         void displayPlaylist();
         void displayNextSong();
+
+        /*===================== (New) Methods required by second task (with this project) ======================= */
+        void addSong(const Playlist &new_playlist); //insertion of songs of another list on this list
+        int removeSong(const Playlist &new_playlist); //remotion of songs of another list on this list
+        Playlist(const Playlist &new_playlist); //Constructor by Copy
+
+        Playlist operator+(const Playlist &new_playlist);
+        Playlist operator+(Music new_song);
+        Playlist operator-(const Playlist &new_playlist);
+        Playlist operator-(Music new_song);
+        void operator>>(Node* &new_song);
+        void operator<<(const Music new_song);
 };
 #endif

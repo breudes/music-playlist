@@ -47,7 +47,7 @@
     /* ---------------------------- Getters and setters -----------------------------*/    
     
     //Get Title
-    std::string Music::getTitle(void){
+    std::string Music::getTitle(void) const{
         /**
             * Returns the 'title' propertie, each means, the title of a music object.
             * @return: title of the song (string value).
@@ -55,7 +55,7 @@
         return this->title;
     }
     //Get Artist
-    std::string Music::getArtist(void){
+    std::string Music::getArtist(void) const{
         /**
             * Returns the 'artist' propertie, each means, the artist of a music object.
             * @return: artist of the song (string value).

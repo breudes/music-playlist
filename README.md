@@ -1,4 +1,50 @@
-# Introduction
+# Introduction of a new part of this project (new features!)
+    This project was made to implements a linked list library, to see more details about that, checks the 'About the first part of this'. Now, this new part adds some new features on the LinkedList class and on Playlist class. 
+    
+    Therefore, what was added on this project?
+
+    1. About LinkedList Class 
+        1.1 Three new methods (by method's overload): 
+            1.1.A Add Elements: a method that adds all songs of one linkedlist on a chosen linkedlist. This method gets the songs by a LinkedList reference parameter;
+
+            1.2.B Remove Elements: a method that removes all songs of one linkedlist there are on a chosen linkedlist. This method gets the songs by a LinkedList reference parameter;
+
+            1.3 Constructor by Copy: A constructor that creates a new LinkedList object by a another linkedlist, this one passed by a LinkedList reference parameter.
+
+            All of this methods was required to practice method's overload.
+        1.2 Three new operators (by operator's overload):
+            1.2.A '+' operator: a operator overloading that allows two given LinkedList create a third LinkedList, this one with all songs from each given LinkedList.
+
+            1.2.B '>>' operator: a operator overloading that allows extract (i.e., remove) the last element of a given LinkedList and then add this element on a Node pointer's adress.
+
+            1.2.C '<<' operator: a operator overloading that allows adds a node pointer on the last position of a given LinkedList, i.e., adds a song on this list, changing its tail pointer to refers this new given pointer.
+
+            All of this methods was required to practice operator's overload.
+    2. About Playlist Class
+        2.1 Three new methods (by method's overload):
+            2.1.A
+            2.1.B
+            2.1.C
+
+            All of this methods was required to practice method's overload.
+        2.2 Three new operators (by operator's overload):
+            2.2.A
+            2.2.B
+            2.2.C
+            2.2.D
+            2.2.E
+            2.2.F
+            All of this methods was required to practice operator's overload.
+ a operator overloading that allows two given LinkedList create a third LinkedList, this one with all songs from the first LinkedList but not from the second one.
+
+# Input and command examples (about the new features)
+    New features on LinkedList class
+        1. Methods
+        2. Operators
+    New features on Playlist class
+        1. Methods
+        2. Operators
+# About the first part of this project
     A linked list it's a simple and linear data structure, formed by nodes, where each node has a object element and another node pointer. The list use a node as a pointer, i.e., a node pointer who points to another node pointer, with this relation is possible the construction of linked list. The first node pointer is called by 'head' and the last node pointer is called by 'tail', these pointers has the adress of the first and last element of list, respectively; and the 'tail' pointer points to a null value (in c++, points to nullptr).
 
     In this project the node of a list has a music element, with a title and artist. Each node connects to the next node, i.e., each music is connected with the next music on list. But this project also requires multiple playlists, so, it was also implemented a linked list where the node has a playlist element, with the playlist name and its list of music. 
