@@ -36,7 +36,7 @@
     
     /* ---------------------------- Getters and setters -----------------------------*/        
     //Get Size
-    int LinkedList::getSize(void){
+    int LinkedList::getSize(void) const{
         /**
             * Returns the size, each means, the length of list.
             * @return int: the length of list (an integer value).
@@ -44,7 +44,7 @@
         return this->size;
     }
     //Get Head
-    Node* LinkedList::getHead(void){
+    Node* LinkedList::getHead(void) const {
         /**
             * Returns the 'head' pointer, each means, the adress of first element of list.
             * @return Node*: head pointer of list (node pointer).
@@ -52,7 +52,7 @@
         return this->head_pointer;
     }
     //Get Tail
-    Node* LinkedList::getTail(void){
+    Node* LinkedList::getTail(void) const {
         /**
             * Returns the 'tail' pointer, each means, the adress of last element of list.
             * @return Node*: tail pointer of list (node pointer).
@@ -157,10 +157,11 @@
 
     /* ---------------------------- Remotion of an element -----------------------------*/
     //Remove Element By Name
-    void LinkedList::removeElementByName(Music new_music){
+    int LinkedList::removeElementByName(Music new_music){
         /**
             * Removes a element at list, this element is music object (with title and artist to search to) passed by user input;
             * @param new_music: music object to be removed of list.
+            * @return: number of songs deleted.
         */
         Node *current_pointer = head_pointer;
         Node *previous_pointer = current_pointer;
@@ -170,6 +171,7 @@
             if( current_pointer->getMusicElement().getTitle() == new_music.getTitle() && current_pointer->getMusicElement().getArtist() == new_music.getArtist() ) break;
             previous_pointer = current_pointer;
             current_pointer = current_pointer->getNextPointer();
+
         }
 
         if(current_pointer!=nullptr){
@@ -181,8 +183,9 @@
             }
             free(current_pointer);
             --size;
-        }else{ std::cout << "Music not found on system!" << std::endl; }
-        
+            return 1;
+        }  
+        return 0;
     }
     /* ---------------------------- Display of elements -----------------------------*/
     //Get One Element Node
@@ -298,4 +301,118 @@
         std::cout << "Track title: " << tail_pointer->getMusicElement().getTitle() << std::endl;
         std::cout << "Track artist: " << tail_pointer->getMusicElement().getArtist() << std::endl;
         std::cout << "-------------------------------------------------------------" << std::endl;
+    }
+
+
+    /*===================== (New) Methods required by second task (with this project) ======================= */
+
+    void LinkedList::addElement(const LinkedList& new_list){
+        /**
+            * Adds all songs of a linked list passed as parameter on this linked list. The given linked list is passed by
+            * reference.
+            * @param 'new_list': a const LinkedList reference.
+        */
+        if(new_list.getSize()>0){
+            Node *new_node = new_list.getHead();
+
+            while(new_node!=nullptr){
+                this->addElement(new_node->getMusicElement());
+                new_node = new_node->getNextPointer();
+            }
+        }else return;
+    }
+    //Remove Element By Name (With LinkedList object as parameter)
+    void LinkedList::removeElementByName(const LinkedList &new_list){
+        /**
+            * Removes all songs on this list that are the same songs on a linked list passed by reference.
+            * @param 'new_list': a const LinkedList reference.
+        */
+        if(new_list.getSize()>0){
+            Node *new_node = new_list.getHead();
+
+            while(new_node!=nullptr){
+                this->removeElementByName(new_node->getMusicElement());
+                new_node = new_node->getNextPointer();
+            }
+        }
+    } 
+
+    //Constructor by Copy
+    LinkedList::LinkedList(const LinkedList &new_list){
+        /**
+            * Constructs a linked list with another linked list, i.e., by copying all songs from this list passed by reference.
+            * @param 'new_list': a const LinkedList reference.
+        */
+        this->setSize(0);
+        this->setHead(nullptr);
+        this->setTail(nullptr);
+        
+        if(new_list.getSize()>0){
+            Node *new_node = new_list.getHead();
+
+            while(new_node!=nullptr){
+                this->addElement(new_node->getMusicElement());
+                new_node = new_node->getNextPointer();
+            }
+        }
+    } 
+
+    //Overload of + operator
+    LinkedList LinkedList::operator+(const LinkedList& new_list){
+        /**
+            * Create a new linked list and adds all songs within this linked list and another linked list, this last list
+            * passed by reference, thus, returns the new linked list. This method is executed by overloading the '+' operator.
+            * @param 'new_list': a const LinkedList reference;
+            * @return: a (new) LinkedList object.
+        */
+        LinkedList thirdList;
+        Node *new_node = this->getHead();
+        
+        while(new_node!=nullptr){
+            Node *node_pointer = new Node();
+            node_pointer = new_node;
+            thirdList.addElement(node_pointer->getMusicElement());
+            new_node = new_node->getNextPointer();
+            thirdList.size++;
+        }
+
+        new_node = new_list.getHead();
+
+        while(new_node!=nullptr){
+            Node *node_pointer = new Node();
+            node_pointer = new_node;
+            thirdList.addElement(node_pointer->getMusicElement());
+            new_node = new_node->getNextPointer();
+            thirdList.size++;
+        }
+
+        return thirdList;
+    }
+    
+    //Overload of >> operator
+    void LinkedList::operator>>(Node* &tail_pointer){
+        /**
+            * Adds a new song (within the last position of this linked list) on a Node pointer's adress. 
+            * This operation is executed by overloading the '>>' operator and the given node is passed by reference.
+            * @param 'tail_pointer': a node reference.
+        */
+        if(this->getSize()>0){
+            tail_pointer->setMusicElement(this->getTail()->getMusicElement());
+            tail_pointer->setNextPointer(this->getTail()->getNextPointer());
+            this->removeElementByName(this->getTail()->getMusicElement());
+        }else{
+            tail_pointer = nullptr;
+        }
+    }
+    
+    //Overload of << operator
+    void LinkedList::operator<<(const Node* new_pointer){
+        /**
+            * Adds a new song (passed within a node pointer) at the end of this linked list. This operation is executed
+            * by overloagind the '<<' operator.
+            * @param 'new_pointer': a const node pointer.
+        */
+        if(new_pointer!=nullptr){
+            this->addElement(new_pointer->getMusicElement());
+        }else return;
     }

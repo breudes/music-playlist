@@ -16,16 +16,6 @@
         this->music_element.setArtist("");
         this->next_pointer = nullptr;
     }
-    Node::Node(Music music, Node *pointer){
-        /**
-            * Constructs an node object with the properties given by user input;
-            * @param music: a music object;
-            * @param pointer: a node pointer.
-        */
-        this->music_element.setTitle(music.getTitle());
-        this->music_element.setArtist(music.getArtist());
-        this->next_pointer->setNextPointer(pointer);
-    }
     //Destructor
     Node::~Node(){
         /**
@@ -41,7 +31,7 @@
     /* ---------------------------- Member functions --------------------------------*/
     /* ---------------------------- Getters and setters -----------------------------*/ 
     //Get Music Element
-    Music Node::getMusicElement(){
+    Music Node::getMusicElement() const{
         /**
             * Returns the 'music_element' propertie, each means, the music element of node's pointer.
             * @return: song of list (music object).
@@ -49,7 +39,7 @@
         return this->music_element;
     }
     //Get Next Pointer
-    Node* Node::getNextPointer(){
+    Node* Node::getNextPointer() const{
         /**
             * Returns the 'next_pointer' propertie, each means, the node pointer's next pointer.
             * @return: next pointer of list (node pointer).

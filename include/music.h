@@ -17,8 +17,8 @@ class Music{
         //Destructors
         ~Music();
         //Getters and Setters
-        std::string getTitle(void);
-        std::string getArtist(void);
+        std::string getTitle(void) const;
+        std::string getArtist(void) const;
         void setTitle(std::string title_name);
         void setArtist(std::string artist_name);
 };
